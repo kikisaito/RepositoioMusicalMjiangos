@@ -6,76 +6,95 @@
     display: flex;
     flex-direction: column;
 
-    h3 {
-        color: white;
-        margin: 0 0 10px;
-        font-size: 1rem;
-    }
-
-    .items {
+    .playlist-bar {
+        background-color: #121212;
+        border-top: 1px solid #282828;
+        padding: 10px 20px;
+        height: 100%;
         display: flex;
-        gap: 15px;
-        overflow-x: auto;
-        padding-bottom: 10px;
+        flex-direction: column;
 
-        &::-webkit-scrollbar {
-            height: 8px;
+        h3 {
+            color: white;
+            margin: 0 0 10px;
+            font-size: 1rem;
         }
 
-        &::-webkit-scrollbar-track {
-            background: #121212;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background: #555;
-            border-radius: 4px;
-        }
-
-        .item {
-            min-width: 200px;
+        .items {
             display: flex;
-            align-items: center;
-            background-color: #181818;
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            flex-direction: column;
+            /* Vertical list */
+            gap: 10px;
+            overflow-y: auto;
+            /* Vertical scroll */
+            height: 100%;
+            padding-right: 5px;
 
-            &:hover {
-                background-color: #282828;
+            &::-webkit-scrollbar {
+                width: 8px;
             }
 
-            &.active {
-                background-color: #282828;
-                border: 1px solid #1db954;
+            &::-webkit-scrollbar-track {
+                background: #121212;
+            }
 
-                .name {
-                    color: #1db954;
+            &::-webkit-scrollbar-thumb {
+                background: #555;
+                border-radius: 4px;
+            }
+
+            .item {
+                width: 100%;
+                /* Full width */
+                display: flex;
+                align-items: center;
+                background-color: transparent;
+                /* Cleaner look */
+                padding: 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: #282828;
                 }
-            }
 
-            img {
-                width: 40px;
-                height: 40px;
-                margin-right: 10px;
-            }
+                &.active {
+                    background-color: #282828;
 
-            .info {
-                overflow: hidden;
+                    .info .name {
+                        color: #1db954;
+                    }
+                }
 
-                .name {
-                    color: white;
-                    font-size: 0.9rem;
-                    white-space: nowrap;
+                img {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 10px;
+                    border-radius: 2px;
+                }
+
+                .info {
+                    flex: 1;
                     overflow: hidden;
-                    text-overflow: ellipsis;
-                }
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
 
-                .artist {
-                    color: #b3b3b3;
-                    font-size: 0.8rem;
+                    .name {
+                        color: white;
+                        font-size: 0.9rem;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        margin-bottom: 2px;
+                    }
+
+                    .artist {
+                        color: #b3b3b3;
+                        font-size: 0.75rem;
+                    }
                 }
             }
         }
     }
-}
