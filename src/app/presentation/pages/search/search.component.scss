@@ -1,0 +1,126 @@
+.search-container {
+    padding: 20px;
+    color: white;
+
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+
+        input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+
+            &:focus {
+                background-color: #444;
+            }
+        }
+
+        button {
+            padding: 0 30px;
+            border-radius: 30px;
+            border: none;
+            background-color: #1db954;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+
+    .section {
+        margin-bottom: 40px;
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+    }
+
+    .track-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                margin-right: 15px;
+            }
+
+            .info {
+                flex: 1;
+
+                .name {
+                    font-weight: bold;
+                }
+
+                .artist {
+                    font-size: 0.9rem;
+                    color: #b3b3b3;
+                }
+            }
+
+            .duration {
+                color: #b3b3b3;
+            }
+        }
+    }
+
+    .album-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+
+        .album-card {
+            background-color: #181818;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #282828;
+            }
+
+            img {
+                width: 100%;
+                aspect-ratio: 1;
+                object-fit: cover;
+                margin-bottom: 10px;
+                border-radius: 4px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .album-name {
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 5px;
+            }
+
+            .album-artist {
+                font-size: 0.9rem;
+                color: #b3b3b3;
+            }
+        }
+    }
+}

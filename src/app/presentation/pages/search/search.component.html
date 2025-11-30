@@ -1,1 +1,37 @@
-<p>search works!</p>
+<div class="search-container">
+    <div class="search-bar">
+        <input type="text" [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="Search for songs or albums...">
+        <button (click)="onSearch()">Search</button>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">Searching...</div>
+
+    <div class="results" *ngIf="results">
+
+        <section *ngIf="results.tracks?.items?.length" class="section">
+            <h2>Songs</h2>
+            <div class="track-list">
+                <div class="track-item" *ngFor="let track of results.tracks?.items" (click)="playTrack(track)">
+                    <img [src]="track.album.images[0]?.url" alt="Cover">
+                    <div class="info">
+                        <div class="name">{{ track.name }}</div>
+                        <div class="artist">{{ track.artists[0].name }}</div>
+                    </div>
+                    <div class="duration">{{ track.duration_ms | date:'mm:ss' }}</div>
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="results.albums?.items?.length" class="section">
+            <h2>Albums</h2>
+            <div class="album-grid">
+                <div class="album-card" *ngFor="let album of results.albums?.items">
+                    <img [src]="album.images[0]?.url" alt="Cover">
+                    <div class="album-name">{{ album.name }}</div>
+                    <div class="album-artist">{{ album.artists[0].name }}</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
