@@ -34,4 +34,7 @@ export interface SearchResponse {
     albums?: {
         items: Album[];
     };
+    artists?: {
+        items: Artist[];
+    };
 }
