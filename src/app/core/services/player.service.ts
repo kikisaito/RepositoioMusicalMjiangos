@@ -25,6 +25,11 @@ export class PlayerService {
   private currentTimeSubject = new BehaviorSubject<number>(0);
   currentTime$ = this.currentTimeSubject.asObservable();
 
+  private isSimulating = false;
+  private simulationInterval: any;
+  private simulatedTime = 0;
+  private readonly SIMULATED_DURATION = 30; // 30 seconds for consistency with previews
+
   constructor() {
     this.loadFromStorage();
 
@@ -33,26 +38,39 @@ export class PlayerService {
     });
 
     this.audio.addEventListener('timeupdate', () => {
-      this.currentTimeSubject.next(this.audio.currentTime);
+      if (!this.isSimulating) {
+        this.currentTimeSubject.next(this.audio.currentTime);
+      }
     });
 
     this.audio.addEventListener('loadedmetadata', () => {
-      this.durationSubject.next(this.audio.duration);
+      if (!this.isSimulating) {
+        this.durationSubject.next(this.audio.duration);
+      }
     });
   }
 
   playTrack(track: Track): void {
-    if (!track.preview_url) {
-      alert('Esta canción no tiene preview disponible en Spotify.');
-      return;
-    }
+    // Stop previous playback/simulation
+    this.stop();
 
     this.currentTrackSubject.next(track);
     this.saveToStorage();
 
-    this.audio.src = track.preview_url;
-    this.audio.load();
-    this.play();
+    if (!track.preview_url) {
+      // Start Simulation Mode
+      this.isSimulating = true;
+      this.simulatedTime = 0;
+      this.durationSubject.next(this.SIMULATED_DURATION);
+      this.currentTimeSubject.next(0);
+      this.play(); // Start simulation loop
+    } else {
+      // Normal Audio Mode
+      this.isSimulating = false;
+      this.audio.src = track.preview_url;
+      this.audio.load();
+      this.play();
+    }
   }
 
   setPlaylist(tracks: Track[], startIndex: number = 0): void {
@@ -75,7 +93,7 @@ export class PlayerService {
       this.currentIndex++;
       this.playTrack(playlist[this.currentIndex]);
     } else {
-      this.isPlayingSubject.next(false);
+      this.stop();
     }
   }
 
@@ -88,14 +106,34 @@ export class PlayerService {
   }
 
   play(): void {
-    this.audio.play().then(() => {
-      this.isPlayingSubject.next(true);
-    }).catch(err => console.error('Error playing audio:', err));
+    this.isPlayingSubject.next(true);
+
+    if (this.isSimulating) {
+      this.startSimulationLoop();
+    } else {
+      this.audio.play().catch(err => console.error('Error playing audio:', err));
+    }
   }
 
   pause(): void {
-    this.audio.pause();
     this.isPlayingSubject.next(false);
+
+    if (this.isSimulating) {
+      this.clearSimulation();
+    } else {
+      this.audio.pause();
+    }
+  }
+
+  stop(): void {
+    this.pause();
+    this.currentTimeSubject.next(0);
+    if (this.isSimulating) {
+      this.simulatedTime = 0;
+      this.clearSimulation();
+    } else {
+      this.audio.currentTime = 0;
+    }
   }
 
   togglePlay(): void {
@@ -107,7 +145,31 @@ export class PlayerService {
   }
 
   seek(seconds: number): void {
-    this.audio.currentTime = seconds;
+    if (this.isSimulating) {
+      this.simulatedTime = seconds;
+      this.currentTimeSubject.next(seconds);
+    } else {
+      this.audio.currentTime = seconds;
+    }
+  }
+
+  private startSimulationLoop(): void {
+    this.clearSimulation();
+    this.simulationInterval = setInterval(() => {
+      this.simulatedTime += 1; // Increment by 1 second
+      this.currentTimeSubject.next(this.simulatedTime);
+
+      if (this.simulatedTime >= this.SIMULATED_DURATION) {
+        this.next(); // Auto-advance when done
+      }
+    }, 1000);
+  }
+
+  private clearSimulation(): void {
+    if (this.simulationInterval) {
+      clearInterval(this.simulationInterval);
+      this.simulationInterval = null;
+    }
   }
 
   private saveToStorage(): void {
@@ -133,9 +195,13 @@ export class PlayerService {
     if (current) {
       const track = JSON.parse(current);
       this.currentTrackSubject.next(track);
-      // No auto-play on load, just restore state
+      // Restore state but don't auto-play
       if (track.preview_url) {
         this.audio.src = track.preview_url;
+        this.isSimulating = false;
+      } else {
+        this.isSimulating = true;
+        this.durationSubject.next(this.SIMULATED_DURATION);
       }
     }
   }
