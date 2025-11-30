@@ -28,7 +28,7 @@ export class PlayerService {
   private isSimulating = false;
   private simulationInterval: any;
   private simulatedTime = 0;
-  private readonly SIMULATED_DURATION = 30; // 30 seconds for consistency with previews
+  private currentSimulationDuration = 0;
 
   constructor() {
     this.loadFromStorage();
@@ -58,10 +58,13 @@ export class PlayerService {
     this.saveToStorage();
 
     if (!track.preview_url) {
-      // Start Simulation Mode
+      // Start Simulation Mode using REAL duration
       this.isSimulating = true;
       this.simulatedTime = 0;
-      this.durationSubject.next(this.SIMULATED_DURATION);
+      // Use track duration or default to 3 minutes if missing
+      this.currentSimulationDuration = (track.duration_ms || 180000) / 1000;
+
+      this.durationSubject.next(this.currentSimulationDuration);
       this.currentTimeSubject.next(0);
       this.play(); // Start simulation loop
     } else {
@@ -159,7 +162,7 @@ export class PlayerService {
       this.simulatedTime += 1; // Increment by 1 second
       this.currentTimeSubject.next(this.simulatedTime);
 
-      if (this.simulatedTime >= this.SIMULATED_DURATION) {
+      if (this.simulatedTime >= this.currentSimulationDuration) {
         this.next(); // Auto-advance when done
       }
     }, 1000);
@@ -201,7 +204,8 @@ export class PlayerService {
         this.isSimulating = false;
       } else {
         this.isSimulating = true;
-        this.durationSubject.next(this.SIMULATED_DURATION);
+        this.currentSimulationDuration = (track.duration_ms || 180000) / 1000;
+        this.durationSubject.next(this.currentSimulationDuration);
       }
     }
   }
