@@ -1,132 +1,69 @@
 <div class="search-container">
     <div class="search-bar">
-        <div class="search-container">
-            <div class="search-bar">
-                <input type="text" [(ngModel)]="query" (keyup.enter)="onSearch()"
-                    placeholder="Search for songs or albums...">
-                <button (click)="onSearch()">Search</button>
+        <input type="text" [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="Search for songs or albums...">
+        <button (click)="onSearch()">Search</button>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">Searching...</div>
+
+    <div class="results-grid" *ngIf="results">
+
+        <!-- Columna Izquierda: Top Result -->
+        <div class="left-column">
+            <section class="section top-result-section" *ngIf="topResult">
+                <h2>Top result</h2>
+                <div class="top-result-card">
+                    <img [src]="topResult.images?.[0]?.url || topResult.album?.images?.[0]?.url" alt="Cover">
+                    <div class="top-result-info">
+                        <div class="top-result-name">{{ topResult.name }}</div>
+                        <div class="top-result-type">
+                            <span class="type-badge">{{ topResult.type | titlecase }}</span>
+                            <span *ngIf="topResult.type === 'track'" class="artist-name">{{
+                                topResult.artists[0].name }}</span>
+                        </div>
+                    </div>
+                    <button class="play-btn-large" *ngIf="topResult.type === 'track'" (click)="playTrack(topResult)">
+                        <span class="play-icon">▶</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Columna Derecha: Canciones -->
+        <div class="right-column">
+            <section *ngIf="results.tracks?.items?.length" class="section">
+                <h2>Songs</h2>
+                <div class="track-list">
+                    <div class="track-item" *ngFor="let track of results.tracks?.items | slice:0:4"
+                        (click)="playTrack(track)">
+                        <div class="track-img-container">
+                            <img [src]="track.album.images[0]?.url" alt="Cover">
+                            <div class="overlay-play">▶</div>
+                        </div>
+                        <div class="info">
+                            <div class="name">{{ track.name }}</div>
+                            <div class="artist">{{ track.artists[0].name }}</div>
+                        </div>
+                        <div class="duration">{{ track.duration_ms | date:'mm:ss' }}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Sección de Álbumes (Debajo) -->
+    <section *ngIf="results?.albums?.items?.length" class="section albums-section">
+        <h2>Albums</h2>
+        <div class="album-grid">
+            <div class="album-card" *ngFor="let album of results?.albums?.items" (click)="goToAlbum(album.id)">
+                <div class="album-img-container">
+                    <img [src]="album.images[0]?.url" alt="Cover">
+                </div>
+                <div class="album-name">{{ album.name }}</div>
+                <div class="album-artist">{{ album.artists[0].name }}</div>
             </div>
+        </div>
+    </section>
 
-            <div class="loading" *ngIf="isLoading">Searching...</div>
-
-            <div class="results-grid" *ngIf="results">
-
-                <!-- Columna Izquierda: Top Result -->
-                <div class="left-column">
-                    <section class="section top-result-section" *ngIf="topResult">
-                        <h2>Top result</h2>
-                        <div class="top-result-card">
-                            <img [src]="topResult.images?.[0]?.url || topResult.album?.images?.[0]?.url" alt="Cover">
-                            <div class="top-result-info">
-                                <div class="top-result-name">{{ topResult.name }}</div>
-                                <div class="top-result-type">
-                                    <span class="type-badge">{{ topResult.type | titlecase }}</span>
-                                    <span *ngIf="topResult.type === 'track'" class="artist-name">{{
-                                        topResult.artists[0].name }}</span>
-                                </div>
-                            </div>
-                            <button class="play-btn-large" *ngIf="topResult.type === 'track'"
-                                (click)="playTrack(topResult)">
-                                <span class="play-icon">▶</span>
-                            </button>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Columna Derecha: Canciones -->
-                <div class="right-column">
-                    <section *ngIf="results.tracks?.items?.length" class="section">
-                        <h2>Songs</h2>
-                        <div class="track-list">
-                            <div class="track-item" *ngFor="let track of results.tracks?.items | slice:0:4"
-                                (click)="playTrack(track)">
-                                <div class="track-img-container">
-                                    <img [src]="track.album.images[0]?.url" alt="Cover">
-                                    <div class="overlay-play">▶</div>
-                                </div>
-                                <div class="info">
-                                    <div class="name">{{ track.name }}</div>
-                                    <div class="artist">{{ track.artists[0].name }}</div>
-                                </div>
-                                <div class="duration">{{ track.duration_ms | date:'mm:ss' }}</div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-                <div class="search-container">
-                    <div class="search-bar">
-                        <div class="search-container">
-                            <div class="search-bar">
-                                <input type="text" [(ngModel)]="query" (keyup.enter)="onSearch()"
-                                    placeholder="Search for songs or albums...">
-                                <button (click)="onSearch()">Search</button>
-                            </div>
-
-                            <div class="loading" *ngIf="isLoading">Searching...</div>
-
-                            <div class="results-grid" *ngIf="results">
-
-                                <!-- Columna Izquierda: Top Result -->
-                                <div class="left-column">
-                                    <section class="section top-result-section" *ngIf="topResult">
-                                        <h2>Top result</h2>
-                                        <div class="top-result-card">
-                                            <img [src]="topResult.images?.[0]?.url || topResult.album?.images?.[0]?.url"
-                                                alt="Cover">
-                                            <div class="top-result-info">
-                                                <div class="top-result-name">{{ topResult.name }}</div>
-                                                <div class="top-result-type">
-                                                    <span class="type-badge">{{ topResult.type | titlecase }}</span>
-                                                    <span *ngIf="topResult.type === 'track'" class="artist-name">{{
-                                                        topResult.artists[0].name }}</span>
-                                                </div>
-                                            </div>
-                                            <button class="play-btn-large" *ngIf="topResult.type === 'track'"
-                                                (click)="playTrack(topResult)">
-                                                <span class="play-icon">▶</span>
-                                            </button>
-                                        </div>
-                                    </section>
-                                </div>
-
-                                <!-- Columna Derecha: Canciones -->
-                                <div class="right-column">
-                                    <section *ngIf="results.tracks?.items?.length" class="section">
-                                        <h2>Songs</h2>
-                                        <div class="track-list">
-                                            <div class="track-item"
-                                                *ngFor="let track of results.tracks?.items | slice:0:4"
-                                                (click)="playTrack(track)">
-                                                <div class="track-img-container">
-                                                    <img [src]="track.album.images[0]?.url" alt="Cover">
-                                                    <div class="overlay-play">▶</div>
-                                                </div>
-                                                <div class="info">
-                                                    <div class="name">{{ track.name }}</div>
-                                                    <div class="artist">{{ track.artists[0].name }}</div>
-                                                </div>
-                                                <div class="duration">{{ track.duration_ms | date:'mm:ss' }}</div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-
-                            </div>
-
-                            <!-- Sección de Álbumes (Debajo) -->
-                            <section *ngIf="results?.albums?.items?.length" class="section albums-section">
-                                <h2>Albums</h2>
-                                <div class="album-grid">
-                                    <div class="album-card" *ngFor="let album of results?.albums?.items"
-                                        (click)="goToAlbum(album.id)">
-                                        <div class="album-img-container">
-                                            <img [src]="album.images[0]?.url" alt="Cover">
-                                        </div>
-                                        <div class="album-name">{{ album.name }}</div>
-                                        <div class="album-artist">{{ album.artists[0].name }}</div>
-                                    </div>
-                                </div>
-                            </section>
-
-                        </div>
+</div>
