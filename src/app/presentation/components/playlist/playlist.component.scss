@@ -8,93 +8,96 @@
 
     .playlist-bar {
         background-color: #121212;
-        border-top: 1px solid #282828;
-        padding: 10px 20px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
 
-        h3 {
-            color: white;
-            margin: 0 0 10px;
-            font-size: 1rem;
-        }
-
-        .items {
+        .playlist-bar {
+            background-color: #121212;
+            border-top: 1px solid #282828;
+            padding: 10px 20px;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            /* Vertical list */
-            gap: 10px;
-            overflow-y: auto;
-            /* Vertical scroll */
-            height: 100%;
-            padding-right: 5px;
 
-            &::-webkit-scrollbar {
-                width: 8px;
+            h3 {
+                color: white;
+                margin: 0 0 10px;
+                font-size: 1rem;
             }
 
-            &::-webkit-scrollbar-track {
-                background: #121212;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background: #555;
-                border-radius: 4px;
-            }
-
-            .item {
-                width: 100%;
-                /* Full width */
+            .items {
                 display: flex;
-                align-items: center;
-                background-color: transparent;
-                /* Cleaner look */
-                padding: 8px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.2s;
+                flex-direction: column;
+                /* Vertical list */
+                gap: 10px;
+                overflow-y: auto;
+                /* Vertical scroll */
+                height: 100%;
+                padding-right: 5px;
 
-                &:hover {
-                    background-color: #282828;
+                &::-webkit-scrollbar {
+                    width: 8px;
                 }
 
-                &.active {
-                    background-color: #282828;
-
-                    .info .name {
-                        color: #1db954;
-                    }
+                &::-webkit-scrollbar-track {
+                    background: #121212;
                 }
 
-                img {
-                    width: 40px;
-                    height: 40px;
-                    margin-right: 10px;
-                    border-radius: 2px;
+                &::-webkit-scrollbar-thumb {
+                    background: #555;
+                    border-radius: 4px;
                 }
 
-                .info {
-                    flex: 1;
-                    overflow: hidden;
+                .item {
+                    width: 100%;
+                    /* Full width */
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
+                    align-items: center;
+                    background-color: transparent;
+                    /* Cleaner look */
+                    padding: 8px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
 
-                    .name {
-                        color: white;
-                        font-size: 0.9rem;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        margin-bottom: 2px;
+                    &:hover {
+                        background-color: #282828;
                     }
 
-                    .artist {
-                        color: #b3b3b3;
-                        font-size: 0.75rem;
+                    &.active {
+                        background-color: #282828;
+
+                        .info .name {
+                            color: #1db954;
+                        }
+                    }
+
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        margin-right: 10px;
+                        border-radius: 2px;
+                    }
+
+                    .info {
+                        flex: 1;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        .name {
+                            color: white;
+                            font-size: 0.9rem;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            margin-bottom: 2px;
+                        }
+
+                        .artist {
+                            color: #b3b3b3;
+                            font-size: 0.75rem;
+                        }
                     }
                 }
             }
         }
-    }
