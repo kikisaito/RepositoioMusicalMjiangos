@@ -1,103 +1,88 @@
 .playlist-bar {
     background-color: #121212;
-    border-top: 1px solid #282828;
     padding: 10px 20px;
     height: 100%;
     display: flex;
     flex-direction: column;
 
-    .playlist-bar {
-        background-color: #121212;
+    h3 {
+        color: white;
+        margin: 0 0 10px;
+        font-size: 1rem;
+        font-weight: 700;
+    }
 
-        .playlist-bar {
-            background-color: #121212;
-            border-top: 1px solid #282828;
-            padding: 10px 20px;
-            height: 100%;
+    .items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: auto;
+        height: 100%;
+        padding-right: 5px;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        .item {
+            width: 100%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
 
-            h3 {
-                color: white;
-                margin: 0 0 10px;
-                font-size: 1rem;
+            &:hover {
+                background-color: #282828;
             }
 
-            .items {
+            &.active {
+                background-color: #282828;
+
+                .info .name {
+                    color: #1db954;
+                }
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+                border-radius: 2px;
+                object-fit: cover;
+            }
+
+            .info {
+                flex: 1;
+                overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                /* Vertical list */
-                gap: 10px;
-                overflow-y: auto;
-                /* Vertical scroll */
-                height: 100%;
-                padding-right: 5px;
+                justify-content: center;
 
-                &::-webkit-scrollbar {
-                    width: 8px;
+                .name {
+                    color: white;
+                    font-size: 0.9rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-bottom: 2px;
                 }
 
-                &::-webkit-scrollbar-track {
-                    background: #121212;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background: #555;
-                    border-radius: 4px;
-                }
-
-                .item {
-                    width: 100%;
-                    /* Full width */
-                    display: flex;
-                    align-items: center;
-                    background-color: transparent;
-                    /* Cleaner look */
-                    padding: 8px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    transition: background-color 0.2s;
-
-                    &:hover {
-                        background-color: #282828;
-                    }
-
-                    &.active {
-                        background-color: #282828;
-
-                        .info .name {
-                            color: #1db954;
-                        }
-                    }
-
-                    img {
-                        width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 2px;
-                    }
-
-                    .info {
-                        flex: 1;
-                        overflow: hidden;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-
-                        .name {
-                            color: white;
-                            font-size: 0.9rem;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            margin-bottom: 2px;
-                        }
-
-                        .artist {
-                            color: #b3b3b3;
-                            font-size: 0.75rem;
-                        }
-                    }
+                .artist {
+                    color: #b3b3b3;
+                    font-size: 0.75rem;
                 }
             }
         }
+    }
+}
