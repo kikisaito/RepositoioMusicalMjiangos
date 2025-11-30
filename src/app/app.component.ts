@@ -3,12 +3,23 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
 import { NavbarComponent } from './presentation/components/navbar/navbar.component';
-import { PlayerLayoutComponent } from './presentation/components/player-layout/player-layout.component';
+import { AlbumGridComponent } from './presentation/components/album-grid/album-grid.component';
+import { SongInfoComponent } from './presentation/components/song-info/song-info.component';
+import { AudioControllerComponent } from './presentation/components/audio-controller/audio-controller.component';
+import { PlaylistComponent } from './presentation/components/playlist/playlist.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, PlayerLayoutComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    NavbarComponent,
+    AlbumGridComponent,
+    SongInfoComponent,
+    AudioControllerComponent,
+    PlaylistComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -18,7 +29,7 @@ export class AppComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
