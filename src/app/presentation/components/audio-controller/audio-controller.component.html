@@ -1,13 +1,22 @@
-<div class="player-controls" *ngIf="currentTrack$ | async as track">
-
+<div class="player-controls">
+    <!-- Track Info -->
     <div class="track-info">
-        <img [src]="track.album.images[0]?.url" alt="Cover">
-        <div class="meta">
-            <div class="name">{{ track.name }}</div>
-            <div class="artist">{{ track.artists[0].name }}</div>
-        </div>
+        <ng-container *ngIf="currentTrack$ | async as track; else noTrack">
+            <img [src]="track.album.images[0]?.url" alt="Cover">
+            <div class="meta">
+                <div class="name">{{ track.name }}</div>
+                <div class="artist">{{ track.artists[0].name }}</div>
+            </div>
+        </ng-container>
+        <ng-template #noTrack>
+            <div class="meta">
+                <div class="name">Selecciona una canción</div>
+                <div class="artist">--</div>
+            </div>
+        </ng-template>
     </div>
 
+    <!-- Controls -->
     <div class="controls-center">
         <div class="buttons">
             <button class="control-btn" (click)="prev()">⏮</button>
