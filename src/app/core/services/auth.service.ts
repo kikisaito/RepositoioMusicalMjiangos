@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private tokenKey = 'spotify_access_token';
 
-  constructor(private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  login(): void {
-    window.location.href = 'http://localhost:3000/auth/login';
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    this.router.navigate(['/']);
+  fetchToken(): Observable<any> {
+    return this.http.get('/auth/token').pipe(
+      tap((res: any) => {
+        if (res.access_token) {
+          this.setToken(res.access_token);
+        }
+      })
+    );
   }
 
   isAuthenticated(): boolean {

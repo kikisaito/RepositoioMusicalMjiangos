@@ -1,25 +1,16 @@
-<div class="app-container" *ngIf="authService.isAuthenticated(); else loginTemplate">
-  <app-navbar class="navbar"></app-navbar>
-  
-  <div class="main-body">
-    <app-album-grid class="sidebar"></app-album-grid>
-    
-    <main class="content-area">
-      <router-outlet></router-outlet>
-    </main>
-    
-    <div class="right-panel">
-      <app-song-info></app-song-info>
-      <app-audio-controller></app-audio-controller>
-    </div>
-  </div>
-  
-  <app-playlist class="bottom-panel"></app-playlist>
-</div>
+<div class="app-container">
+  <app-navbar></app-navbar>
 
-<ng-template #loginTemplate>
-  <div class="login-container">
-    <h1>Spotify Player</h1>
-    <button class="login-btn" (click)="authService.login()">Login with Spotify</button>
+  <div class="main-content">
+    <app-album-grid class="sidebar"></app-album-grid>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+    <app-playlist class="playlist-sidebar"></app-playlist>
   </div>
-</ng-template>
+
+  <div class="player-bar">
+    <app-song-info></app-song-info>
+    <app-audio-controller></app-audio-controller>
+  </div>
+</div>

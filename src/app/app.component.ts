@@ -33,20 +33,9 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const accessToken = params['access_token'];
-      if (accessToken) {
-        this.authService.setToken(accessToken);
-        // Limpiar URL
-        this.router.navigate([], {
-          queryParams: {
-            access_token: null,
-            refresh_token: null,
-            expires_in: null
-          },
-          queryParamsHandling: 'merge'
-        });
-      }
+    this.authService.fetchToken().subscribe({
+      next: () => console.log('Token obtained successfully'),
+      error: (err) => console.error('Error obtaining token:', err)
     });
   }
 }
