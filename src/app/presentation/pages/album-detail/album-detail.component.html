@@ -1,1 +1,18 @@
-<p>album-detail works!</p>
+<div class="album-detail" *ngIf="album">
+    <div class="header">
+        <img [src]="album.images[0]?.url" alt="Cover" class="cover">
+        <div class="info">
+            <h1>{{ album.name }}</h1>
+            <h2>{{ album.artists[0].name }}</h2>
+            <p>{{ album.release_date | date:'yyyy' }} • {{ tracks.length }} songs</p>
+        </div>
+    </div>
+
+    <div class="track-list">
+        <div class="track-item" *ngFor="let track of tracks; let i = index" (click)="playTrack(i)">
+            <div class="number">{{ i + 1 }}</div>
+            <div class="name">{{ track.name }}</div>
+            <div class="duration">{{ track.duration_ms | date:'mm:ss' }}</div>
+        </div>
+    </div>
+</div>
