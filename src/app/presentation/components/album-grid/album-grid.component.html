@@ -1,25 +1,14 @@
 <div class="sidebar-nav">
-    <div class="logo">
-        <i class="fab fa-spotify"></i> Music Player
-    </div>
+    <!-- Logo removed as per user request -->
 
     <nav>
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <i class="fas fa-home"></i> Home
-            <div class="sidebar-nav">
-                <div class="logo">
-                    <i class="fab fa-spotify"></i> Music Player
-                </div>
+        </a>
+        <a routerLink="/search" routerLinkActive="active">
+            <i class="fas fa-search"></i> Search
+        </a>
+    </nav>
 
-                <nav>
-                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                    <a routerLink="/search" routerLinkActive="active">
-                        <i class="fas fa-search"></i> Search
-                    </a>
-                </nav>
-
-                <!-- Library section removed -->
-
-            </div>
+    <!-- Library section removed -->
+</div>
