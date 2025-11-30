@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SpotifyService } from '../../../data/services/spotify.service';
 import { SearchResponse } from '../../../domain/spotify.models';
 import { PlayerService } from '../../../core/services/player.service';
@@ -19,7 +20,8 @@ export class SearchComponent {
 
   constructor(
     private spotifyService: SpotifyService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private router: Router
   ) { }
 
   topResult: any = null;
@@ -54,5 +56,9 @@ export class SearchComponent {
 
   playTrack(track: any): void {
     this.playerService.playTrack(track);
+  }
+
+  goToAlbum(id: string): void {
+    this.router.navigate(['/album', id]);
   }
 }
