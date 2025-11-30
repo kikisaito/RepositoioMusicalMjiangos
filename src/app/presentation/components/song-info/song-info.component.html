@@ -1,1 +1,7 @@
-<p>song-info works!</p>
+<div class="song-info" *ngIf="currentTrack$ | async as track">
+    <img [src]="track.album.images[0]?.url" alt="Cover" class="cover">
+    <div class="details">
+        <div class="name">{{ track.name }}</div>
+        <div class="artist">{{ track.artists[0].name }}</div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.controller {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    color: white;
+
+    button {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: white;
+        }
+    }
+
+    .play-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+
+        &:hover {
+            transform: scale(1.05);
+            color: black;
+        }
+    }
+
+    .control-btn {
+        font-size: 1.2rem;
+    }
+}

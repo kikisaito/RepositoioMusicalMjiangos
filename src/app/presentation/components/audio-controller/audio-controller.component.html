@@ -1,1 +1,13 @@
-<p>audio-controller works!</p>
+<div class="controller">
+    <button class="control-btn prev">
+        <i class="fas fa-step-backward"></i> |< </button>
+
+            <button class="play-btn" (click)="togglePlay()">
+                <span *ngIf="!(isPlaying$ | async)">PLAY</span>
+                <span *ngIf="(isPlaying$ | async)">PAUSE</span>
+            </button>
+
+            <button class="control-btn next">
+                <i class="fas fa-step-forward"></i> >|
+            </button>
+</div>
