@@ -149,8 +149,13 @@ export class PlayerService {
 
   seek(seconds: number): void {
     if (this.isSimulating) {
-      this.simulatedTime = seconds;
-      this.currentTimeSubject.next(seconds);
+      // Ensure we don't seek past the end
+      if (seconds >= this.currentSimulationDuration) {
+        this.next();
+      } else {
+        this.simulatedTime = seconds;
+        this.currentTimeSubject.next(seconds);
+      }
     } else {
       this.audio.currentTime = seconds;
     }

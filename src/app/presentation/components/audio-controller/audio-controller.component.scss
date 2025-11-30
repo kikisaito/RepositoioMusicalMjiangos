@@ -8,105 +8,70 @@
     border-top: 1px solid #282828;
     color: white;
 
-    .track-info {
+    width: 40%;
+    gap: 0.5rem;
+
+    .buttons {
         display: flex;
         align-items: center;
-        width: 30%;
-        gap: 1rem;
+        gap: 1.5rem;
 
-        img {
-            width: 56px;
-            height: 56px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
+        button {
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
 
-        .meta {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            .name {
-                font-size: 0.9rem;
-                font-weight: 600;
+            &:hover {
                 color: white;
             }
 
-            .artist {
-                font-size: 0.75rem;
-                color: #b3b3b3;
+            &.play-btn {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: white;
+                color: black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
             }
         }
     }
 
-    .controls-center {
+    .progress-bar {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        width: 40%;
+        width: 100%;
         gap: 0.5rem;
+        font-size: 0.75rem;
+        color: #b3b3b3;
 
-        .buttons {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
+        input[type="range"] {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: #535353;
+            outline: none;
+            cursor: pointer;
+            accent-color: #1db954;
+            /* Color verde Spotify */
 
-            button {
-                background: none;
-                border: none;
-                color: #b3b3b3;
-                font-size: 1.2rem;
-                cursor: pointer;
-                transition: color 0.2s;
-
-                &:hover {
-                    color: white;
-                }
-
-                &.play-btn {
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    background: white;
-                    color: black;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1rem;
-
-                    &:hover {
-                        transform: scale(1.05);
-                    }
-                }
-            }
-        }
-
-        .progress-bar {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: #b3b3b3;
-
-            input[type="range"] {
-                flex: 1;
-                height: 4px;
-                border-radius: 2px;
-                background: #535353;
-                outline: none;
-                cursor: pointer;
-                accent-color: #1db954;
-                /* Color verde Spotify */
-
-                &:hover {
-                    background: #1db954;
-                }
+            &:hover {
+                background: #1db954;
             }
         }
     }
+}
 
-    .volume-placeholder {
-        width: 30%;
-    }
+.volume-placeholder {
+    width: 30%;
+}
 }
