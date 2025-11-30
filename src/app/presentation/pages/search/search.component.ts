@@ -22,13 +22,24 @@ export class SearchComponent {
     private playerService: PlayerService
   ) { }
 
+  topResult: any = null;
+
   onSearch(): void {
     if (!this.query.trim()) return;
 
     this.isLoading = true;
+    this.results = null;
+    this.topResult = null;
+
     this.spotifyService.search(this.query).subscribe({
       next: (res) => {
         this.results = res;
+        // Determinar Top Result (prioridad: artista > canción)
+        if (res.artists?.items?.length) {
+          this.topResult = { ...res.artists.items[0], type: 'artist' };
+        } else if (res.tracks?.items?.length) {
+          this.topResult = { ...res.tracks.items[0], type: 'track' };
+        }
         this.isLoading = false;
       },
       error: (err) => {
