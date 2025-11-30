@@ -9,16 +9,27 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:3000/auth/callback';
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
-// Generar string aleatorio para state
-const generateRandomString = (length) => {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < length; i++) {
-        res.status(500).json({ error: 'No se pudo refrescar el token' });
+app.get('/auth/token', async (req, res) => {
+    const authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64')),
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: 'grant_type=client_credentials'
+    };
+
+    try {
+        const response = await axios.post(authOptions.url, authOptions.data, {
+            headers: authOptions.headers
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error getting token:', error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Failed to get token' });
     }
 });
 
