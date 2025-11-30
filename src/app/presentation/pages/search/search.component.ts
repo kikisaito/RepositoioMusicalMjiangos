@@ -25,6 +25,7 @@ export class SearchComponent {
   topResult: any = null;
 
   onSearch(): void {
+    console.log('Search initiated for:', this.query);
     if (!this.query.trim()) return;
 
     this.isLoading = true;
@@ -33,6 +34,7 @@ export class SearchComponent {
 
     this.spotifyService.search(this.query).subscribe({
       next: (res) => {
+        console.log('Search results received:', res);
         this.results = res;
         // Determinar Top Result (prioridad: artista > canción)
         if (res.artists?.items?.length) {
@@ -40,6 +42,7 @@ export class SearchComponent {
         } else if (res.tracks?.items?.length) {
           this.topResult = { ...res.tracks.items[0], type: 'track' };
         }
+        console.log('Top Result:', this.topResult);
         this.isLoading = false;
       },
       error: (err) => {

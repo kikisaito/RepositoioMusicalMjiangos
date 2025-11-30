@@ -19,11 +19,25 @@ export class PlayerService {
 
   private currentIndex = -1;
 
+  private durationSubject = new BehaviorSubject<number>(0);
+  duration$ = this.durationSubject.asObservable();
+
+  private currentTimeSubject = new BehaviorSubject<number>(0);
+  currentTime$ = this.currentTimeSubject.asObservable();
+
   constructor() {
     this.loadFromStorage();
 
     this.audio.addEventListener('ended', () => {
       this.next();
+    });
+
+    this.audio.addEventListener('timeupdate', () => {
+      this.currentTimeSubject.next(this.audio.currentTime);
+    });
+
+    this.audio.addEventListener('loadedmetadata', () => {
+      this.durationSubject.next(this.audio.duration);
     });
   }
 
@@ -90,6 +104,10 @@ export class PlayerService {
     } else {
       this.play();
     }
+  }
+
+  seek(seconds: number): void {
+    this.audio.currentTime = seconds;
   }
 
   private saveToStorage(): void {
