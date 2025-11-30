@@ -1,5 +1,5 @@
 <div class="controller">
-    <button class="control-btn prev">
+    <button class="control-btn prev" (click)="prev()">
         <i class="fas fa-step-backward"></i> |< </button>
 
             <button class="play-btn" (click)="togglePlay()">
@@ -7,7 +7,7 @@
                 <span *ngIf="(isPlaying$ | async)">PAUSE</span>
             </button>
 
-            <button class="control-btn next">
+            <button class="control-btn next" (click)="next()">
                 <i class="fas fa-step-forward"></i> >|
             </button>
 </div>

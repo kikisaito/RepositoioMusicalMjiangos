@@ -17,4 +17,12 @@ export class AudioControllerComponent {
   togglePlay(): void {
     this.playerService.togglePlay();
   }
+
+  next(): void {
+    this.playerService.next();
+  }
+
+  prev(): void {
+    this.playerService.prev();
+  }
 }
