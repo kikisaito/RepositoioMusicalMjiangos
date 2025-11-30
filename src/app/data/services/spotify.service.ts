@@ -18,7 +18,7 @@ export class SpotifyService {
     });
   }
 
-  search(query: string, type: string = 'track,album'): Observable<SearchResponse> {
+  search(query: string, type: string = 'track,album,artist'): Observable<SearchResponse> {
     return this.http.get<SearchResponse>(`${this.apiUrl}/search?q=${query}&type=${type}`, {
       headers: this.getHeaders()
     });
