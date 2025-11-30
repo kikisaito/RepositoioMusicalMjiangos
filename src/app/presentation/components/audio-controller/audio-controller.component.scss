@@ -8,70 +8,117 @@
     border-top: 1px solid #282828;
     color: white;
 
-    width: 40%;
-    gap: 0.5rem;
-
-    .buttons {
+    .track-info {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        width: 30%;
+        gap: 1rem;
+        overflow: hidden;
+        /* Prevent overflow */
 
-        button {
-            background: none;
-            border: none;
-            color: #b3b3b3;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.2s;
+        img {
+            width: 48px;
+            /* Reduced size */
+            height: 48px;
+            border-radius: 4px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
 
-            &:hover {
+        .meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            /* Prevent overflow */
+
+            .name {
+                font-size: 0.9rem;
+                font-weight: 600;
                 color: white;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            &.play-btn {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                background: white;
-                color: black;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1rem;
+            .artist {
+                font-size: 0.75rem;
+                color: #b3b3b3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .controls-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 40%;
+        gap: 0.5rem;
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+
+            button {
+                background: none;
+                border: none;
+                color: #b3b3b3;
+                font-size: 1.2rem;
+                cursor: pointer;
+                transition: color 0.2s;
 
                 &:hover {
-                    transform: scale(1.05);
+                    color: white;
+                }
+
+                &.play-btn {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    background: white;
+                    color: black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1rem;
+
+                    &:hover {
+                        transform: scale(1.05);
+                    }
+                }
+            }
+        }
+
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #b3b3b3;
+
+            input[type="range"] {
+                flex: 1;
+                height: 4px;
+                border-radius: 2px;
+                background: #535353;
+                outline: none;
+                cursor: pointer;
+                accent-color: #1db954;
+                /* Color verde Spotify */
+
+                &:hover {
+                    background: #1db954;
                 }
             }
         }
     }
 
-    .progress-bar {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 0.5rem;
-        font-size: 0.75rem;
-        color: #b3b3b3;
-
-        input[type="range"] {
-            flex: 1;
-            height: 4px;
-            border-radius: 2px;
-            background: #535353;
-            outline: none;
-            cursor: pointer;
-            accent-color: #1db954;
-            /* Color verde Spotify */
-
-            &:hover {
-                background: #1db954;
-            }
-        }
+    .volume-placeholder {
+        width: 30%;
     }
-}
-
-.volume-placeholder {
-    width: 30%;
-}
 }
