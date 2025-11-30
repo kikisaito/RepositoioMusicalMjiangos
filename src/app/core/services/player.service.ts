@@ -47,6 +47,14 @@ export class PlayerService {
     this.playTrack(tracks[startIndex]);
   }
 
+  playAtIndex(index: number): void {
+    const playlist = this.playlistSubject.value;
+    if (playlist && playlist[index]) {
+      this.currentIndex = index;
+      this.playTrack(playlist[index]);
+    }
+  }
+
   next(): void {
     const playlist = this.playlistSubject.value;
     if (this.currentIndex < playlist.length - 1) {

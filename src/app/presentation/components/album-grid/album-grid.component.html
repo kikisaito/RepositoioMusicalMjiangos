@@ -1,1 +1,22 @@
-<p>album-grid works!</p>
+<div class="sidebar-nav">
+    <div class="logo">
+        <i class="fab fa-spotify"></i> Music Player
+    </div>
+
+    <nav>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a routerLink="/search" routerLinkActive="active">
+            <i class="fas fa-search"></i> Search
+        </a>
+    </nav>
+
+    <div class="library">
+        <h3>Your Library</h3>
+        <!-- Placeholder for library -->
+        <div class="placeholder">
+            Liked Songs
+        </div>
+    </div>
+</div>
