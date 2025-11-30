@@ -1,2 +1,29 @@
-</button>
+<div class="player-controls" *ngIf="currentTrack$ | async as track">
+
+    <div class="track-info">
+        <img [src]="track.album.images[0]?.url" alt="Cover">
+        <div class="meta">
+            <div class="name">{{ track.name }}</div>
+            <div class="artist">{{ track.artists[0].name }}</div>
+        </div>
+    </div>
+
+    <div class="controls-center">
+        <div class="buttons">
+            <button class="control-btn" (click)="prev()">⏮</button>
+            <button class="play-btn" (click)="togglePlay()">
+                {{ (isPlaying$ | async) ? '⏸' : '▶' }}
+            </button>
+            <button class="control-btn" (click)="next()">⏭</button>
+        </div>
+
+        <div class="progress-bar">
+            <span class="time">{{ (currentTime$ | async) | number:'1.0-0' }}s</span>
+            <input type="range" [min]="0" [max]="(duration$ | async) || 30" [value]="(currentTime$ | async) || 0"
+                (input)="onSeek($event)">
+            <span class="time">{{ (duration$ | async) | number:'1.0-0' }}s</span>
+        </div>
+    </div>
+
+    <div class="volume-placeholder"></div>
 </div>
