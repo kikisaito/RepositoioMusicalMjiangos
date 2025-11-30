@@ -11,6 +11,9 @@ import { PlayerService } from '../../../core/services/player.service';
 })
 export class AudioControllerComponent {
   isPlaying$ = this.playerService.isPlaying$;
+  currentTrack$ = this.playerService.currentTrack$;
+  currentTime$ = this.playerService.currentTime$;
+  duration$ = this.playerService.duration$;
 
   constructor(public playerService: PlayerService) { }
 
@@ -24,5 +27,10 @@ export class AudioControllerComponent {
 
   prev(): void {
     this.playerService.prev();
+  }
+
+  onSeek(event: any): void {
+    const value = event.target.value;
+    this.playerService.seek(value);
   }
 }
